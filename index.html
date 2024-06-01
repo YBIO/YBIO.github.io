@@ -170,7 +170,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2024-06-01 08:54:50 / Modified: 13:25:36" itemprop="dateCreated datePublished" datetime="2024-06-01T08:54:50+08:00">2024-06-01</time>
+              <time title="Created: 2024-06-01 08:54:50 / Modified: 13:33:40" itemprop="dateCreated datePublished" datetime="2024-06-01T08:54:50+08:00">2024-06-01</time>
             </span>
 
           
@@ -196,11 +196,11 @@
 <ol>
 <li>Pascal VOC 2012：共21类（其中有一个背景类），其中训练集10582张图像，验证集1449张图像。增量学习设定包括15-5 (2 steps),15-1 (6 steps),5-3 (6 steps),10-1 (11 steps)。</li>
 <li>ADE20K：共150类，其中训练集20210张图像，验证集2000张图像。增量学习设定包括100-50(2 steps),100-10(6 steps),50-50(3 steps),100-5(11 steps)。</li>
-<li>ISPRS Postdam&amp;Vaihingen：6类，实验时去除了占比少且语义不清晰的背景类。Postdam原始图像大小为6000$\times$6000，训练时切割为600$\times$600的patch。增量学习设定包括4-1(2 steps),2-3(2 steps),2-2-1(3 steps),2-1(4 steps)。<br><img src="images/LAG/datasets.png"> </li>
+<li>ISPRS Postdam&amp;Vaihingen：6类，实验时去除了占比少且语义不清晰的背景类。Postdam原始图像大小为6000$\times$6000，训练时切割为600$\times$600的patch。增量学习设定包括4-1(2 steps),2-3(2 steps),2-2-1(3 steps),2-1(4 steps)。<br><img src="/images/LAG/datasets.png"> </li>
 </ol>
 <h3 id="CSS-Protocols"><a href="#CSS-Protocols" class="headerlink" title="CSS Protocols"></a>CSS Protocols</h3><p>常见的CSS设定包括以下三种：<br>1） Sequential：每个步骤会出现包含旧类和新类像素的标签。<br>2） Disjoint：新的图片只包含了新类的标签，旧类放在了背景中，不包含未知类。<br>3） Overlapped：只有新类被注释，而其余的设置为背景，可能包含未知类。<br>其中Overlapped更加符合实际情况，因此本文采用Overlapped设定开展实验。</p>
-<h3 id="实验结果-1"><a href="#实验结果-1" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="/images/LAG/tab2.png"><br><img src="images/LAG/fig7.png"><br><img src="images/LAG/fig5.png"><br><img src="images/LAG/fig6.png"> </p>
-<h4 id="可解释性分析"><a href="#可解释性分析" class="headerlink" title="可解释性分析"></a>可解释性分析</h4><p><img src="images/LAG/fig10.png"> </p>
+<h3 id="实验结果-1"><a href="#实验结果-1" class="headerlink" title="实验结果"></a>实验结果</h3><p><img src="/images/LAG/tab2.png"><br><img src="/images/LAG/fig7.png"><br><img src="/images/LAG/fig5.png"><br><img src="/images/LAG/fig6.png"> </p>
+<h4 id="可解释性分析"><a href="#可解释性分析" class="headerlink" title="可解释性分析"></a>可解释性分析</h4><p><img src="/images/LAG/fig10.png"> </p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文提出的持续语义分割方法将人类认知机制建模到持续学习任务中，将神经元相关性约束嵌入到持续学习模型中，提出的解耦知识蒸馏方法提高了模型抗遗忘能力和缓解语义漂移的能力，在提高模型持续学习性能的同时增强模型的可解释性，能够在有限增量数据条件下实现鲁棒性更强的持续学习能力。</p>
 
       
