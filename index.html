@@ -145,6 +145,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ybio.github.io/2024/06/01/blog_SurveyCSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bo Yuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bo Yuan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/01/blog_SurveyCSS/" class="post-title-link" itemprop="url">Survey on Continual Semantic Segmentation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-01 21:22:39" itemprop="dateCreated datePublished" datetime="2024-06-01T21:22:39+08:00">2024-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-06-07 12:26:42" itemprop="dateModified" datetime="2024-06-07T12:26:42+08:00">2024-06-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center><b>A Survey on Continual Semantic Segmentation: 
+
+<p> Theory, Challenge, Method and Application</b></center></p>
+<center>Bo Yuan<sup>1,2</sup>, Danpei Zhao<sup>1,2</sup></center>
+<center></center>
+<center><sup>1</sup> AIRVIC Lab, Beihang University</center> 
+<center><sup>2</sup> Tianmushan Laboratory</center>
+
+<hr>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>持续学习，又称为增量学习或终身学习，打破传统深度学习方式在闭集上进行训练和推理的限制，使模型能够在开放数据集上进行连续自适应学习。在过去的十年中，持续学习已在多个领域得到广泛探讨和应用，尤其是在计算机视觉领域，包括分类、检测和分割等任务。而持续语义分割（CSS）由于其密集预测的特殊性质，成为了一个充满挑战、复杂且不断发展的任务。在本文中，我们对CSS进行了综述，涵盖了持续语义分割的问题定义、主要挑战、通用数据集、方法理论和应用的全面调研。根据是否需要存储部分旧数据，本文将当前的CSS模型分为data-replay和data-free两大类。本文对现有的CSS方法进行了调研、分类和比较，并在相关数据集上的定性和定量对比。</p>
+<h2 id="方法分类"><a href="#方法分类" class="headerlink" title="方法分类"></a>方法分类</h2><p>根据持续语义分割的场景，我们还把CSS任务分为了四种，分别是任务增量（Task-incremental CSS）、领域增量（Domain-incremental CSS）、类别增量（Class-incremental CSS）和模态增量（Modality-incremental CSS）。这四种任务涵盖了持续语义分割多样化的应用场景和发展趋势。此外，本文还建立了一个CSS基准，其中包括代表性文献、评估结果和复制实验，仓库已经开源。<br><img src="/images/SurveyCSS/fig4.png"> </p>
+<p>如下图所示，根据是否需要存储和回放旧知识，CSS可以分为基于回放的方法（Data-Replay）和不依赖旧数据的方法（Data-Free）两类。</p>
+<h3 id="Data-replay方法"><a href="#Data-replay方法" class="headerlink" title="Data-replay方法"></a>Data-replay方法</h3><p>其中基于回放的方法又可以分为代表性数据回放（Exemplar-replay）和生成式回放（Generative-replay）两种。</p>
+<ul>
+<li><p><strong>代表性数据回放</strong>：这类方法通过存储部分旧类别的数据，并在增量训练的过程中和新增数据共同监督模型训练，以减少对旧类别的灾难性遗忘。根据数据回放的方式，可以分为样本回放（sample-reply）、特征回放（feature-replay）和辅助数据（Auxiliary data）的方式。其中样本回放就是直接存储原始图像；特征回放的方式通常保存类别特征原型；辅助数据则可以通过从一个易获取的渠道（例如从互联网）获取大量数据辅助模型增量训练。数据回放的原则主要包括以下几种方式：包括：1)类别平衡原则；2)损失函数值原则；3)熵原则；4)梯度原则；5)表征原则。</p>
+</li>
+<li><p><strong>生成式数据回放</strong>：由于实际场景中，直接存储旧类别数据会面临隐私限制和存储空间开销的问题，这类方法通过生成与旧类别一致的图像实现数据回放。代表性方法是RECALL-GAN。</p>
+</li>
+</ul>
+<h3 id="Data-free方法"><a href="#Data-free方法" class="headerlink" title="Data-free方法"></a>Data-free方法</h3><p>而不依赖旧数据的方法具有更加明显的应用优势，不需要额外的存储空间开销，也无需保留特征原型，仅依靠模型本身实现增量更新。目前的方法可以分为基于自监督的方法（Self-supervised）、基于正则化的方法（Regularization-based）和基于动态结构的方法（Dynamic-architecture）。</p>
+<ul>
+<li><strong>基于自监督的方法</strong>：通常利用对比学习（代表方法包括SDR、UCD、IDEC等）、伪标注生成（代表方法包括ProCA、REMINDER）、基础模型驱动（代表方法包括FMWISS）等方式获取旧类别的监督信息，辅助模型训练。目前基于预训练基础模型的方式也实现了良好的增量学习效果。在CSS任务中，自监督学习变得由于其适应新事物的能力而特别相关使用有限标记数据的类或任务。Self-supervised CSS方法通常涉及辅助任务，如预测缺少像素，上下文重建和图像旋转。这些任务指导模型从中学习有用的特性可用的数据，使其能够适应新的语义类别，同时保留从先前获得的知识任务。</li>
+<li><strong>基于正则化的方法</strong>：通常采用知识蒸馏、预训练和权重迁移的方式更新模型参数。其中知识蒸馏方法是最常用的方式之一，</li>
+</ul>
+<ul>
+<li><strong>基于动态结构的方法</strong>：通过参数分割、模型分解和模块化网络实现模型的结构更新。</li>
+</ul>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>下表列出了持续语义分割任务常用的数据集。<br><img src="/images/SurveyCSS/tab3.png"> </p>
+<h2 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h2><h3 id="定性对比"><a href="#定性对比" class="headerlink" title="定性对比"></a>定性对比</h3><p>下表展示了近年来CSS模型的各项特性，包括发表时间、任务属性、测试数据集、模型性能等多方面因素。<br><img src="/images/SurveyCSS/tab5.png"> </p>
+<h3 id="定量对比"><a href="#定量对比" class="headerlink" title="定量对比"></a>定量对比</h3><p>下图展示了9种代表性算法的性能对比，包括学习顺序稳健性、抗遗忘能力等。<br><img src="/images/SurveyCSS/fig8.png"> </p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><br><br>© 2024 <em>Bo Yuan</em> All Rights Reserved</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://ybio.github.io/2024/06/01/blog_LAG/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,7 +520,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
