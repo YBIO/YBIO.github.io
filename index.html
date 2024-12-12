@@ -145,201 +145,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ybio.github.io/2024/06/01/blog_SurveyCSS/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bo Yuan">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bo Yuan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/01/blog_SurveyCSS/" class="post-title-link" itemprop="url">Survey on Continual Semantic Segmentation</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-01 21:22:39" itemprop="dateCreated datePublished" datetime="2024-06-01T21:22:39+08:00">2024-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-12-12 14:17:45" itemprop="dateModified" datetime="2024-12-12T14:17:45+08:00">2024-12-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <center><b>A Survey on Continual Semantic Segmentation: 
-
-<p> Theory, Challenge, Method and Application</b></center></p>
-<center>Bo Yuan<sup>1,2</sup>, Danpei Zhao<sup>1,2</sup></center>
-<center></center>
-<center><sup>1</sup> AIRVIC Lab, Beihang University</center> 
-<center><sup>2</sup> Tianmushan Laboratory, Hangzhou</center>
-
-<p><a target="_blank" rel="noopener" href="https://browse.arxiv.org/abs/2310.14277">[paper]</a> | <a target="_blank" rel="noopener" href="https://github.com/YBIO/SurveyCSS">[Github]</a></p>
-<hr>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>持续学习，又称为增量学习或终身学习，打破传统深度学习方式在闭集上进行训练和推理的限制，使模型能够在开放数据集上进行连续自适应学习。在过去的十年中，持续学习已在多个领域得到广泛探讨和应用，尤其是在计算机视觉领域，包括分类、检测和分割等任务。而持续语义分割（CSS）由于其密集预测的特殊性质，成为了一个充满挑战、复杂且不断发展的任务。在本文中，我们对CSS进行了综述，涵盖了持续语义分割的问题定义、主要挑战、通用数据集、方法理论和应用的全面调研。根据是否需要存储部分旧数据，本文将当前的CSS模型分为data-replay和data-free两大类。本文对现有的CSS方法进行了调研、分类和比较，并在相关数据集上的定性和定量对比。</p>
-<h2 id="方法分类"><a href="#方法分类" class="headerlink" title="方法分类"></a>方法分类</h2><p>根据持续语义分割的场景，我们还把CSS任务分为了四种，分别是任务增量（Task-incremental CSS）、领域增量（Domain-incremental CSS）、类别增量（Class-incremental CSS）和模态增量（Modality-incremental CSS）。这四种任务涵盖了持续语义分割多样化的应用场景和发展趋势。此外，本文还建立了一个CSS基准，其中包括代表性文献、评估结果和复制实验，仓库已经开源。<br><img src="/images/SurveyCSS/fig4.png"> </p>
-<p>如下图所示，根据是否需要存储和回放旧知识，CSS可以分为基于回放的方法（Data-Replay）和不依赖旧数据的方法（Data-Free）两类。</p>
-<h3 id="Data-replay方法"><a href="#Data-replay方法" class="headerlink" title="- Data-replay方法"></a>- Data-replay方法</h3><p>其中基于回放的方法又可以分为代表性数据回放（Exemplar-replay）和生成式回放（Generative-replay）两种。</p>
-<ul>
-<li><p><strong>代表性数据回放</strong>：这类方法通过存储部分旧类别的数据，并在增量训练的过程中和新增数据共同监督模型训练，以减少对旧类别的灾难性遗忘。根据数据回放的方式，可以分为样本回放（sample-reply）、特征回放（feature-replay）和辅助数据（Auxiliary data）的方式。其中样本回放就是直接存储原始图像；特征回放的方式通常保存类别特征原型；辅助数据则可以通过从一个易获取的渠道（例如从互联网）获取大量数据辅助模型增量训练。数据回放的原则主要包括以下几种方式：包括：1)类别平衡原则；2)损失函数值原则；3)熵原则；4)梯度原则；5)表征原则。</p>
-</li>
-<li><p><strong>生成式数据回放</strong>：由于实际场景中，直接存储旧类别数据会面临隐私限制和存储空间开销的问题，这类方法通过生成与旧类别一致的图像实现数据回放。代表性方法是RECALL-GAN。</p>
-</li>
-</ul>
-<h3 id="Data-free方法"><a href="#Data-free方法" class="headerlink" title="- Data-free方法"></a>- Data-free方法</h3><p>而不依赖旧数据的方法具有更加明显的应用优势，不需要额外的存储空间开销，也无需保留特征原型，仅依靠模型本身实现增量更新。目前的方法可以分为基于自监督的方法（Self-supervised）、基于正则化的方法（Regularization-based）和基于动态结构的方法（Dynamic-architecture）。</p>
-<ul>
-<li><strong>基于自监督的方法</strong>：通常利用对比学习（代表方法包括SDR、UCD、IDEC等）、伪标注生成（代表方法包括ProCA、REMINDER）、基础模型驱动（代表方法包括FMWISS）等方式获取旧类别的监督信息，辅助模型训练。</li>
-<li><strong>基于正则化的方法</strong>：通常采用知识蒸馏（如MiB、PLOP、IDEC）、预训练（如MicroSeg）和权重迁移（如SWT、GSC、SimCS）的方式更新模型参数。</li>
-</ul>
-<ul>
-<li><strong>基于动态结构的方法</strong>：通过参数分割（如ACD、FairCL）、模型分解（如RCIL、DKD）和模块化网络设计实现模型的结构更新。</li>
-</ul>
-<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>下表列出了持续语义分割任务常用的数据集。<br><img src="/images/SurveyCSS/tab3.png"> </p>
-<h2 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h2><h3 id="定性对比"><a href="#定性对比" class="headerlink" title="- 定性对比"></a>- 定性对比</h3><p>下表展示了近年来CSS模型的各项特性，包括发表时间、任务属性、测试数据集、模型性能等多方面因素。<br><img src="/images/SurveyCSS/tab5.png"> </p>
-<h3 id="定量对比"><a href="#定量对比" class="headerlink" title="- 定量对比"></a>- 定量对比</h3><p>下图展示了9种代表性算法的性能对比，包括学习顺序稳健性、抗遗忘能力等。<br><img src="/images/SurveyCSS/fig8.png"> </p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>持续语义分割(CSS)使模型能够在动态和开放的环境中不断学习新知识，同时保持对现有知识的保留，从而在稳定性和可塑性之间取得平衡。持续学习技术有望模仿人类的学习模式，对于构建强人工智能，扩展其应用领域，提高深度学习模型的智能化水平具有重要价值。我们希望这篇综述能够为相关领域的研究者提供一些有价值的参考。</p>
-<p><br><br>© 2024 <em>Bo Yuan</em> All Rights Reserved</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://ybio.github.io/2024/06/01/blog_LAG/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Bo Yuan">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bo Yuan">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/06/01/blog_LAG/" class="post-title-link" itemprop="url">Brain-inspired Continual Semantic Segmentation</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-06-01 08:54:50" itemprop="dateCreated datePublished" datetime="2024-06-01T08:54:50+08:00">2024-06-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-12-12 14:17:40" itemprop="dateModified" datetime="2024-12-12T14:17:40+08:00">2024-12-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Learning-at-a-Glance-Towards-Interpretable-Data-limited-Continual-Semantic-Segmentation-via-Semantic-Invariance-Modelling-TPAMI-2024"><a href="#Learning-at-a-Glance-Towards-Interpretable-Data-limited-Continual-Semantic-Segmentation-via-Semantic-Invariance-Modelling-TPAMI-2024" class="headerlink" title="Learning at a Glance: Towards Interpretable Data-limited Continual Semantic Segmentation via Semantic-Invariance Modelling - TPAMI 2024"></a>Learning at a Glance: Towards Interpretable Data-limited Continual Semantic Segmentation via Semantic-Invariance Modelling - TPAMI 2024</h2><center>Bo Yuan, Danpei Zhao, et al.</center>
-<center><b>AIRVIC Lab</b></center>
-<center>Beihang University</center>
-
-<hr>
-<p><img src="/images/LAG/fig0.png"> </p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>基于增量学习范式(Incremental Learning, IL)的持续语义分割(Continual Semantic Segmentation, CSS)是发展类脑感知语义分割的重要研究方向。然而，当前的CSS方法在保存旧知识和学习新的数据存在不平衡的问题，且大部分CSS模型仍然需要大规模的带标注的数据来进行增量训练，并且缺乏可解释性。在本文中，我们提出一个新的持续语义分割模型LAG，一个有效的，稳健的，类脑的和可解释的CSS方法。LAG是一个简洁的且不依赖特定语义分割模型的CSS架构，能够在有限的增量数据条件下实现良好的增量学习效能。本文的灵感来源于类脑感知识别的模式。具体地，本文提出了一种基于语义特征解耦的语义不变建模方法，所提出的解耦方式包括两种:通道维解耦和空间维神经元相关语义一致性。本文将语义知识建模为语义不变性知识和样本相关性知识。通过语义不变知识的建模，将其作为知识原型进行回放，以缓解模型的灾难性遗忘；同时利用非对称对比学习驱动模型提高对样本相关性知识的区分能力。此外，本文还构建了一种新的有限增量数据条件以及一个新的持续语义分割设定：类别增量+领域增量。在多种通用语义分割数据集上证明了本文方法的有效性，特别是在有限增量数据条件下超过了现有的CSS模型。</p>
-<h2 id="主要贡献"><a href="#主要贡献" class="headerlink" title="主要贡献"></a>主要贡献</h2><p>本文提出一种有限增量数据条件下的持续语义分割方法。该方法基于人类认知模式，将图像的高维特征分解耦为语义不变性特征和样本相关性特征，并针对性设计知识迁移方法以增强模型在持续语义分割任务上的性能。针对持续语义分割任务中面临的三大难点问题：<br>1）持续学习过程中对旧知识的灾难性遗忘；<br>2）新旧知识之间的语义混淆；<br>3）模型对于不同增量任务的泛化性差；</p>
-<p>本文通过设计并构建基于解耦知识蒸馏的迁移学习方法，实现对新旧知识的兼容。并通过基于梯度加权的特征解耦对齐方法增强持续学习语义分割模型的鲁棒性和泛化性。具体地，<br>1）针对持续学习过程中的灾难性遗忘问题，提出一种基于人类认知模式的特征解耦机制，将图像的高维特征解耦为语义不变性特征和样本相关性特征，且二者满足通道维加性关系；<br>2）针对持续学习过程中新旧知识之间的语义混淆问题，提出一种解耦知识蒸馏方法，在新旧模型之间分别建立语义不变性特征和样本相关性特征的相似性约束，减少语义混淆；<br>3）针对持续学习模型在跨类别和跨模态增量条件下的泛化性差的问题，提出一种基于神经元相关性的语义一致性约束，将旧模型和新模型输出的特征进行基于欧式距离的约束，实现新旧模型之间的有效知识迁移，增强持续语义分割模型的泛化性和鲁棒性；<br>4）为了在有限增量数据条件下，提高持续增量语义分割模型对旧知识的继承能力，提出了一种基于不确定性的伪标注生成方法，为新模型的训练提供可信赖的监督信息。</p>
-<ul>
-<li><h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><img src="/images/LAG/network.png"> </li>
-</ul>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><ul>
-<li><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3>本文采用了三种图像分割数据集：</li>
-</ul>
-<ol>
-<li>Pascal VOC 2012：共21类（其中有一个背景类），其中训练集10582张图像，验证集1449张图像。增量学习设定包括15-5 (2 steps),15-1 (6 steps),5-3 (6 steps),10-1 (11 steps)。</li>
-<li>ADE20K：共150类，其中训练集20210张图像，验证集2000张图像。增量学习设定包括100-50(2 steps),100-10(6 steps),50-50(3 steps),100-5(11 steps)。</li>
-<li>ISPRS Postdam&amp;Vaihingen：6类，实验时去除了占比少且语义不清晰的背景类。Postdam原始图像大小为6000$\times$6000，训练时切割为600$\times$600的patch。增量学习设定包括4-1(2 steps),2-3(2 steps),2-2-1(3 steps),2-1(4 steps)。<br><img src="/images/LAG/datasets.png"> </li>
-</ol>
-<ul>
-<li><h3 id="CSS-Protocols"><a href="#CSS-Protocols" class="headerlink" title="CSS Protocols"></a>CSS Protocols</h3><p>常见的CSS设定包括以下三种：<br>1） Sequential：每个步骤会出现包含旧类和新类像素的标签。<br>2） Disjoint：新的图片只包含了新类的标签，旧类放在了背景中，不包含未知类。<br>3） Overlapped：只有新类被注释，而其余的设置为背景，可能包含未知类。<br>其中Overlapped更加符合实际情况，因此本文采用Overlapped设定开展实验。</p>
-</li>
-<li><h3 id="定量结果"><a href="#定量结果" class="headerlink" title="定量结果"></a>定量结果</h3><ul>
-<li>VOC 2012：<br><img src="/images/LAG/tab2.png"><br><img src="/images/LAG/fig5.png"><br><img src="/images/LAG/fig6.png"><br>有限增量数据条件下的模型性能验证<br><img src="/images/LAG/tab11.png"> </li>
-</ul>
-</li>
-<li><h3 id="定性结果"><a href="#定性结果" class="headerlink" title="定性结果"></a>定性结果</h3><p><img src="/images/LAG/fig7.png"> </p>
-</li>
-<li><h3 id="可解释性分析"><a href="#可解释性分析" class="headerlink" title="可解释性分析"></a>可解释性分析</h3><p><img src="/images/LAG/fig10.png"> </p>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文提出的持续语义分割方法将人类认知机制建模到持续学习任务中，将神经元相关性约束嵌入到持续学习模型中，提出的解耦知识蒸馏方法提高了模型抗遗忘能力和缓解语义漂移的能力，在提高模型持续学习性能的同时增强模型的可解释性，能够在有限增量数据条件下实现鲁棒性更强的持续学习能力。</p>
-<p><br><br>© 2024 <em>Bo Yuan</em> All Rights Reserved</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://ybio.github.io/2023/12/12/Biography/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -455,6 +260,201 @@
 <p><a target="_blank" rel="noopener" href="https://www.mdpi.com/2076-3417/8/10/2003">No-reference blurred image quality assessment by structural similarity index</a> <br>Haopeng Zhang, <strong>Bo Yuan</strong>, Bo Dong, Zhiguo Jiang. - Applied Sciences, 2018.</p>
 </blockquote>
 <h2 id="Links"><a href="#Links" class="headerlink" title="Links"></a>Links</h2><p>Research Collaborators:<br>[<a target="_blank" rel="noopener" href="http://www.sa.buaa.edu.cn/info/1014/4780.htm">Danpei Zhao (赵丹培)</a>] [<a target="_blank" rel="noopener" href="https://www.sshao.com/">Shuai Shao (邵帅)</a>]</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ybio.github.io/2024/06/01/blog_SurveyCSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bo Yuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bo Yuan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/01/blog_SurveyCSS/" class="post-title-link" itemprop="url">Survey on Continual Semantic Segmentation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-01 21:22:39" itemprop="dateCreated datePublished" datetime="2024-06-01T21:22:39+08:00">2024-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-12-12 14:20:53" itemprop="dateModified" datetime="2024-12-12T14:20:53+08:00">2024-12-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <center><b>A Survey on Continual Semantic Segmentation: 
+
+<p> Theory, Challenge, Method and Application</b></center></p>
+<center>Bo Yuan<sup>1,2</sup>, Danpei Zhao<sup>1,2</sup></center>
+<center></center>
+<center><sup>1</sup> AIRVIC Lab, Beihang University</center> 
+<center><sup>2</sup> Tianmushan Laboratory, Hangzhou</center>
+
+<p><a target="_blank" rel="noopener" href="https://browse.arxiv.org/abs/2310.14277">[paper]</a> | <a target="_blank" rel="noopener" href="https://github.com/YBIO/SurveyCSS">[Github]</a></p>
+<hr>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>持续学习，又称为增量学习或终身学习，打破传统深度学习方式在闭集上进行训练和推理的限制，使模型能够在开放数据集上进行连续自适应学习。在过去的十年中，持续学习已在多个领域得到广泛探讨和应用，尤其是在计算机视觉领域，包括分类、检测和分割等任务。而持续语义分割（CSS）由于其密集预测的特殊性质，成为了一个充满挑战、复杂且不断发展的任务。在本文中，我们对CSS进行了综述，涵盖了持续语义分割的问题定义、主要挑战、通用数据集、方法理论和应用的全面调研。根据是否需要存储部分旧数据，本文将当前的CSS模型分为data-replay和data-free两大类。本文对现有的CSS方法进行了调研、分类和比较，并在相关数据集上的定性和定量对比。</p>
+<h2 id="方法分类"><a href="#方法分类" class="headerlink" title="方法分类"></a>方法分类</h2><p>根据持续语义分割的场景，我们还把CSS任务分为了四种，分别是任务增量（Task-incremental CSS）、领域增量（Domain-incremental CSS）、类别增量（Class-incremental CSS）和模态增量（Modality-incremental CSS）。这四种任务涵盖了持续语义分割多样化的应用场景和发展趋势。此外，本文还建立了一个CSS基准，其中包括代表性文献、评估结果和复制实验，仓库已经开源。<br><img src="/images/SurveyCSS/fig4.png"> </p>
+<p>如下图所示，根据是否需要存储和回放旧知识，CSS可以分为基于回放的方法（Data-Replay）和不依赖旧数据的方法（Data-Free）两类。</p>
+<h3 id="Data-replay方法"><a href="#Data-replay方法" class="headerlink" title="- Data-replay方法"></a>- Data-replay方法</h3><p>其中基于回放的方法又可以分为代表性数据回放（Exemplar-replay）和生成式回放（Generative-replay）两种。</p>
+<ul>
+<li><p><strong>代表性数据回放</strong>：这类方法通过存储部分旧类别的数据，并在增量训练的过程中和新增数据共同监督模型训练，以减少对旧类别的灾难性遗忘。根据数据回放的方式，可以分为样本回放（sample-reply）、特征回放（feature-replay）和辅助数据（Auxiliary data）的方式。其中样本回放就是直接存储原始图像；特征回放的方式通常保存类别特征原型；辅助数据则可以通过从一个易获取的渠道（例如从互联网）获取大量数据辅助模型增量训练。数据回放的原则主要包括以下几种方式：包括：1)类别平衡原则；2)损失函数值原则；3)熵原则；4)梯度原则；5)表征原则。</p>
+</li>
+<li><p><strong>生成式数据回放</strong>：由于实际场景中，直接存储旧类别数据会面临隐私限制和存储空间开销的问题，这类方法通过生成与旧类别一致的图像实现数据回放。代表性方法是RECALL-GAN。</p>
+</li>
+</ul>
+<h3 id="Data-free方法"><a href="#Data-free方法" class="headerlink" title="- Data-free方法"></a>- Data-free方法</h3><p>而不依赖旧数据的方法具有更加明显的应用优势，不需要额外的存储空间开销，也无需保留特征原型，仅依靠模型本身实现增量更新。目前的方法可以分为基于自监督的方法（Self-supervised）、基于正则化的方法（Regularization-based）和基于动态结构的方法（Dynamic-architecture）。</p>
+<ul>
+<li><strong>基于自监督的方法</strong>：通常利用对比学习（代表方法包括SDR、UCD、IDEC等）、伪标注生成（代表方法包括ProCA、REMINDER）、基础模型驱动（代表方法包括FMWISS）等方式获取旧类别的监督信息，辅助模型训练。</li>
+<li><strong>基于正则化的方法</strong>：通常采用知识蒸馏（如MiB、PLOP、IDEC）、预训练（如MicroSeg）和权重迁移（如SWT、GSC、SimCS）的方式更新模型参数。</li>
+</ul>
+<ul>
+<li><strong>基于动态结构的方法</strong>：通过参数分割（如ACD、FairCL）、模型分解（如RCIL、DKD）和模块化网络设计实现模型的结构更新。</li>
+</ul>
+<h2 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h2><p>下表列出了持续语义分割任务常用的数据集。<br><img src="/images/SurveyCSS/tab3.png"> </p>
+<h2 id="性能评估"><a href="#性能评估" class="headerlink" title="性能评估"></a>性能评估</h2><h3 id="定性对比"><a href="#定性对比" class="headerlink" title="- 定性对比"></a>- 定性对比</h3><p>下表展示了近年来CSS模型的各项特性，包括发表时间、任务属性、测试数据集、模型性能等多方面因素。<br><img src="/images/SurveyCSS/tab5.png"> </p>
+<h3 id="定量对比"><a href="#定量对比" class="headerlink" title="- 定量对比"></a>- 定量对比</h3><p>下图展示了9种代表性算法的性能对比，包括学习顺序稳健性、抗遗忘能力等。<br><img src="/images/SurveyCSS/fig8.png"> </p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>持续语义分割(CSS)使模型能够在动态和开放的环境中不断学习新知识，同时保持对现有知识的保留，从而在稳定性和可塑性之间取得平衡。持续学习技术有望模仿人类的学习模式，对于构建强人工智能，扩展其应用领域，提高深度学习模型的智能化水平具有重要价值。我们希望这篇综述能够为相关领域的研究者提供一些有价值的参考。</p>
+<p><br><br>© 2024 <em>Bo Yuan</em> All Rights Reserved</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://ybio.github.io/2024/06/01/blog_LAG/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Bo Yuan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bo Yuan">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/06/01/blog_LAG/" class="post-title-link" itemprop="url">Brain-inspired Continual Semantic Segmentation</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-06-01 08:54:50" itemprop="dateCreated datePublished" datetime="2024-06-01T08:54:50+08:00">2024-06-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-12-12 14:20:54" itemprop="dateModified" datetime="2024-12-12T14:20:54+08:00">2024-12-12</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="Learning-at-a-Glance-Towards-Interpretable-Data-limited-Continual-Semantic-Segmentation-via-Semantic-Invariance-Modelling-TPAMI-2024"><a href="#Learning-at-a-Glance-Towards-Interpretable-Data-limited-Continual-Semantic-Segmentation-via-Semantic-Invariance-Modelling-TPAMI-2024" class="headerlink" title="Learning at a Glance: Towards Interpretable Data-limited Continual Semantic Segmentation via Semantic-Invariance Modelling - TPAMI 2024"></a>Learning at a Glance: Towards Interpretable Data-limited Continual Semantic Segmentation via Semantic-Invariance Modelling - TPAMI 2024</h2><center>Bo Yuan, Danpei Zhao, et al.</center>
+<center><b>AIRVIC Lab</b></center>
+<center>Beihang University</center>
+
+<hr>
+<p><img src="/images/LAG/fig0.png"> </p>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>基于增量学习范式(Incremental Learning, IL)的持续语义分割(Continual Semantic Segmentation, CSS)是发展类脑感知语义分割的重要研究方向。然而，当前的CSS方法在保存旧知识和学习新的数据存在不平衡的问题，且大部分CSS模型仍然需要大规模的带标注的数据来进行增量训练，并且缺乏可解释性。在本文中，我们提出一个新的持续语义分割模型LAG，一个有效的，稳健的，类脑的和可解释的CSS方法。LAG是一个简洁的且不依赖特定语义分割模型的CSS架构，能够在有限的增量数据条件下实现良好的增量学习效能。本文的灵感来源于类脑感知识别的模式。具体地，本文提出了一种基于语义特征解耦的语义不变建模方法，所提出的解耦方式包括两种:通道维解耦和空间维神经元相关语义一致性。本文将语义知识建模为语义不变性知识和样本相关性知识。通过语义不变知识的建模，将其作为知识原型进行回放，以缓解模型的灾难性遗忘；同时利用非对称对比学习驱动模型提高对样本相关性知识的区分能力。此外，本文还构建了一种新的有限增量数据条件以及一个新的持续语义分割设定：类别增量+领域增量。在多种通用语义分割数据集上证明了本文方法的有效性，特别是在有限增量数据条件下超过了现有的CSS模型。</p>
+<h2 id="主要贡献"><a href="#主要贡献" class="headerlink" title="主要贡献"></a>主要贡献</h2><p>本文提出一种有限增量数据条件下的持续语义分割方法。该方法基于人类认知模式，将图像的高维特征分解耦为语义不变性特征和样本相关性特征，并针对性设计知识迁移方法以增强模型在持续语义分割任务上的性能。针对持续语义分割任务中面临的三大难点问题：<br>1）持续学习过程中对旧知识的灾难性遗忘；<br>2）新旧知识之间的语义混淆；<br>3）模型对于不同增量任务的泛化性差；</p>
+<p>本文通过设计并构建基于解耦知识蒸馏的迁移学习方法，实现对新旧知识的兼容。并通过基于梯度加权的特征解耦对齐方法增强持续学习语义分割模型的鲁棒性和泛化性。具体地，<br>1）针对持续学习过程中的灾难性遗忘问题，提出一种基于人类认知模式的特征解耦机制，将图像的高维特征解耦为语义不变性特征和样本相关性特征，且二者满足通道维加性关系；<br>2）针对持续学习过程中新旧知识之间的语义混淆问题，提出一种解耦知识蒸馏方法，在新旧模型之间分别建立语义不变性特征和样本相关性特征的相似性约束，减少语义混淆；<br>3）针对持续学习模型在跨类别和跨模态增量条件下的泛化性差的问题，提出一种基于神经元相关性的语义一致性约束，将旧模型和新模型输出的特征进行基于欧式距离的约束，实现新旧模型之间的有效知识迁移，增强持续语义分割模型的泛化性和鲁棒性；<br>4）为了在有限增量数据条件下，提高持续增量语义分割模型对旧知识的继承能力，提出了一种基于不确定性的伪标注生成方法，为新模型的训练提供可信赖的监督信息。</p>
+<ul>
+<li><h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><img src="/images/LAG/network.png"> </li>
+</ul>
+<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><ul>
+<li><h3 id="数据集"><a href="#数据集" class="headerlink" title="数据集"></a>数据集</h3>本文采用了三种图像分割数据集：</li>
+</ul>
+<ol>
+<li>Pascal VOC 2012：共21类（其中有一个背景类），其中训练集10582张图像，验证集1449张图像。增量学习设定包括15-5 (2 steps),15-1 (6 steps),5-3 (6 steps),10-1 (11 steps)。</li>
+<li>ADE20K：共150类，其中训练集20210张图像，验证集2000张图像。增量学习设定包括100-50(2 steps),100-10(6 steps),50-50(3 steps),100-5(11 steps)。</li>
+<li>ISPRS Postdam&amp;Vaihingen：6类，实验时去除了占比少且语义不清晰的背景类。Postdam原始图像大小为6000$\times$6000，训练时切割为600$\times$600的patch。增量学习设定包括4-1(2 steps),2-3(2 steps),2-2-1(3 steps),2-1(4 steps)。<br><img src="/images/LAG/datasets.png"> </li>
+</ol>
+<ul>
+<li><h3 id="CSS-Protocols"><a href="#CSS-Protocols" class="headerlink" title="CSS Protocols"></a>CSS Protocols</h3><p>常见的CSS设定包括以下三种：<br>1） Sequential：每个步骤会出现包含旧类和新类像素的标签。<br>2） Disjoint：新的图片只包含了新类的标签，旧类放在了背景中，不包含未知类。<br>3） Overlapped：只有新类被注释，而其余的设置为背景，可能包含未知类。<br>其中Overlapped更加符合实际情况，因此本文采用Overlapped设定开展实验。</p>
+</li>
+<li><h3 id="定量结果"><a href="#定量结果" class="headerlink" title="定量结果"></a>定量结果</h3><ul>
+<li>VOC 2012：<br><img src="/images/LAG/tab2.png"><br><img src="/images/LAG/fig5.png"><br><img src="/images/LAG/fig6.png"><br>有限增量数据条件下的模型性能验证<br><img src="/images/LAG/tab11.png"> </li>
+</ul>
+</li>
+<li><h3 id="定性结果"><a href="#定性结果" class="headerlink" title="定性结果"></a>定性结果</h3><p><img src="/images/LAG/fig7.png"> </p>
+</li>
+<li><h3 id="可解释性分析"><a href="#可解释性分析" class="headerlink" title="可解释性分析"></a>可解释性分析</h3><p><img src="/images/LAG/fig10.png"> </p>
+</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文提出的持续语义分割方法将人类认知机制建模到持续学习任务中，将神经元相关性约束嵌入到持续学习模型中，提出的解耦知识蒸馏方法提高了模型抗遗忘能力和缓解语义漂移的能力，在提高模型持续学习性能的同时增强模型的可解释性，能够在有限增量数据条件下实现鲁棒性更强的持续学习能力。</p>
+<p><br><br>© 2024 <em>Bo Yuan</em> All Rights Reserved</p>
 
       
     </div>
